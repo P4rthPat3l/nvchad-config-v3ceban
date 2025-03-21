@@ -3,16 +3,23 @@ require "nvchad.options"
 vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.incsearch = true
-vim.opt.shell = "/bin/zsh"
+-- Set shell based on OS
+if vim.fn.has('win32') == 1 then
+  vim.opt.shell = "powershell"
+  vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+  vim.opt.shellxquote = ""
+else
+  vim.opt.shell = "/bin/zsh"
+end
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 vim.g.markdown_recommended_style = 0
 vim.g.copilot_no_tab_map = true
 vim.opt.completeopt = "menu,menuone,noselect,popup"
+vim.opt.scrolloff = 15
 vim.opt.laststatus = 3
 
--- higlight groups for markdown
 vim.api.nvim_set_hl(0, "RenderMarkdownHeader", { fg = "#89b4fa" })
 vim.api.nvim_set_hl(0, "RenderMarkdownTodo", { fg = "#f38ba8" })
 vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = "#fab387" })

@@ -7,7 +7,7 @@ return {
   {
     "yetone/avante.nvim",
     event = "User",
-    build = "make",
+    build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
     version = false,
     dependencies = {
       "MunifTanjim/nui.nvim",
