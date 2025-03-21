@@ -3,7 +3,7 @@ vim.api.nvim_set_hl(0, "DiffAddGroup", { bg = "#272a3f" })
 vim.api.nvim_set_hl(0, "DiffTextGroup", { bg = "#1e2030" })
 
 local opts = {
-  provider = "copilot:3.7",
+  provider = "copilot:o3",
   auto_suggestions_provider = "copilot:3.7",
   openai = {
     endpoint = "https://api.openai.com/v1", -- needs OPENAI_API_KEY env variable
