@@ -3,8 +3,8 @@ vim.api.nvim_set_hl(0, "DiffAddGroup", { bg = "#272a3f" })
 vim.api.nvim_set_hl(0, "DiffTextGroup", { bg = "#1e2030" })
 
 local opts = {
-  provider = "copilot:o3",
-  auto_suggestions_provider = "copilot:3.7",
+  provider = "copilot:4o",
+  auto_suggestions_provider = "copilot:4o",
   openai = {
     endpoint = "https://api.openai.com/v1", -- needs OPENAI_API_KEY env variable
     model = "o3-mini",
@@ -28,6 +28,11 @@ local opts = {
     ["copilot:3.5"] = {
       __inherited_from = "copilot",
       model = "claude-3.5-sonnet",
+      max_tokens = 16384,
+    },
+    ["copilot:4o"] = {
+      __inherited_from = "copilot",
+      model = "gpt-4o",
       max_tokens = 16384,
     },
     ["copilot:o3"] = {
