@@ -20,9 +20,13 @@ vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.scrolloff = 15
 vim.opt.laststatus = 3
 
+-- Add spacing on the right side of line numbers
+vim.opt.numberwidth = 4  -- Keep numbers close to the left
+vim.opt.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum}  '  -- The spaces after %{} create right padding
+
 -- buffer tabs
-vim.opt.winwidth = 50    -- Further increases the width of window splits
-vim.opt.winminwidth = 30 -- Increases the minimum width of windows
+-- vim.opt.winwidth = 50    -- Further increases the width of window splits
+-- vim.opt.winminwidth = 30 -- Increases the minimum width of windows
 -- vim.opt.winheight = 30   -- Increases window height (optional)
 
 vim.api.nvim_set_hl(0, "RenderMarkdownHeader", { fg = "#89b4fa" })
