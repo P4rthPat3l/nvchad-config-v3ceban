@@ -3,6 +3,8 @@ require "nvchad.mappings"
 local map = vim.keymap.set
 
 -- General
+-- vim.api.nvim_set_keymap('n', 'h', 'zc', { noremap = true, silent = true })  -- Close fold with 'h'
+-- vim.api.nvim_set_keymap('n', 'l', 'zo', { noremap = true, silent = true })  -- Open fold with 'l'
 map({ "n", "i", "v", "t" }, "<C-s>", "<cmd>wa<CR>", { desc = "Save all files" })
 map({ "n", "i", "v", "t" }, "<C-q>", "<cmd>qa!<CR>", { desc = "Close all buffers and quit" })
 map({ "n", "i", "v", "t" }, "<C-z>", "<nop>")

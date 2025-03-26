@@ -20,6 +20,11 @@ vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.scrolloff = 15
 vim.opt.laststatus = 3
 
+-- buffer tabs
+vim.opt.winwidth = 50    -- Further increases the width of window splits
+vim.opt.winminwidth = 30 -- Increases the minimum width of windows
+-- vim.opt.winheight = 30   -- Increases window height (optional)
+
 vim.api.nvim_set_hl(0, "RenderMarkdownHeader", { fg = "#89b4fa" })
 vim.api.nvim_set_hl(0, "RenderMarkdownTodo", { fg = "#f38ba8" })
 vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = "#fab387" })
