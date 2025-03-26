@@ -6,6 +6,23 @@ local init = nvlsp.on_init
 local attach = nvlsp.on_attach
 local capabilities = nvlsp.capabilities
 
+local function documentHighlight(client, bufnr)
+  -- Set autocommands conditional on server_capabilities
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
+end
+
 local servers = {
   "bashls",
   "docker_compose_language_service",
@@ -17,14 +34,20 @@ local servers = {
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_init = init,
-    on_attach = attach,
+    on_attach = function(client, bufnr)
+      attach(client, bufnr)
+      documentHighlight(client, bufnr)
+    end,
     capabilities = capabilities,
   }
 end
 
 lspconfig.clangd.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = {
     offsetEncoding = { "utf-16" },
   },
@@ -32,7 +55,10 @@ lspconfig.clangd.setup {
 
 lspconfig.emmet_language_server.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   filetypes = {
     "css",
@@ -52,7 +78,10 @@ lspconfig.emmet_language_server.setup {
 
 lspconfig.ts_ls.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   init_options = {
     preferences = {
@@ -63,7 +92,10 @@ lspconfig.ts_ls.setup {
 
 lspconfig.intelephense.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   init_options = {
     globalStoragePath = ".intelephense",
@@ -79,7 +111,10 @@ lspconfig.intelephense.setup {
 
 lspconfig.gopls.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   settings = {
     gopls = {
@@ -94,7 +129,10 @@ lspconfig.gopls.setup {
 
 lspconfig.cssls.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   settings = {
     css = {
@@ -107,7 +145,10 @@ lspconfig.cssls.setup {
 
 lspconfig.pylsp.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   settings = {
     pylsp = {
@@ -126,7 +167,10 @@ lspconfig.pylsp.setup {
 
 lspconfig.tailwindcss.setup {
   on_init = init,
-  on_attach = attach,
+  on_attach = function(client, bufnr)
+    attach(client, bufnr)
+    documentHighlight(client, bufnr)
+  end,
   capabilities = capabilities,
   filetypes = {
     "aspnetcorerazor",
