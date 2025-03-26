@@ -40,7 +40,7 @@ The configuration can be used as is and doesn't require any further setup.
 
    ```sh
     # Clone this repo
-    git clone https://github.com/v3ceban/nvchad-config.git ~/.config/nvim
+   git clone https://github.com/v3ceban/nvchad-config.git $env:LOCALAPPDATA\nvim
    ```
 
 5. If you're on Windows, configure Git to use the native SSL backend:
