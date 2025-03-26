@@ -7,7 +7,6 @@ local map = vim.keymap.set
 -- vim.api.nvim_set_keymap('n', 'l', 'zo', { noremap = true, silent = true })  -- Open fold with 'l'
 map({ "n", "i", "v", "t" }, "<C-s>", "<cmd>wa<CR>", { desc = "Save all files" })
 map({ "n", "i", "v", "t" }, "<C-q>", "<cmd>qa!<CR>", { desc = "Close all buffers and quit" })
-map({ "n", "i", "v", "t" }, "<C-z>", "<nop>")
 map({ "n", "v" }, "Q", "q")
 map({ "n" }, "<leader>sw", [[:/<C-r><C-w><CR>]], { desc = "Search word", noremap = true })
 map(
@@ -149,3 +148,7 @@ map({ "n" }, "<leader>am", "<cmd>AvanteModels<CR>", { desc = "AI Change model" }
 map({ "v", "o" }, "n", function()
   require("flash").treesitter()
 end, { desc = "Select treesitter node" })
+
+-- Add these with your other mappings
+-- map("n", "<leader>mm", "<cmd>lua require('codewindow').toggle_minimap()<CR>", { desc = "Toggle Minimap" })
+-- map("n", "<leader>mf", "<cmd>lua require('codewindow').toggle_focus()<CR>", { desc = "Toggle Minimap Focus" })
