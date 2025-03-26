@@ -43,8 +43,39 @@ The configuration can be used as is and doesn't require any further setup.
     git clone https://github.com/v3ceban/nvchad-config.git ~/.config/nvim
    ```
 
-5. ??????
-6. PROFIT
+5. If you're on Windows, configure Git to use the native SSL backend:
+
+   ```powershell
+   # Run these commands in PowerShell as your user
+   git config --global http.sslbackend schannel
+   git config --global http.schannelcheckrevoke false
+   ```
+
+   This prevents SSL-related errors during plugin installation and updates.
+
+6. ??????
+7. PROFIT
+
+## Troubleshooting
+
+### Windows Git SSL Issues
+
+If you encounter SSL-related errors during plugin installation or Treesitter parser downloads, particularly on Windows, try these steps:
+
+1. Close all instances of PowerShell and Neovim
+2. Open PowerShell as Administrator (Right-click PowerShell -> Run as Administrator)
+3. Configure Git to use Windows' native SSL backend:
+   ```powershell
+   git config --global http.sslbackend schannel
+   git config --global http.schannelcheckrevoke false
+   ```
+4. Verify the settings were applied:
+   ```powershell
+   git config --global --get http.sslbackend
+   git config --global --get http.schannelcheckrevoke
+   ```
+
+These settings help resolve SSL certificate verification issues that can occur on Windows systems, particularly when downloading Treesitter parsers or other plugins.
 
 ## Currently Supported Languages
 

@@ -42,6 +42,8 @@ map({ "n" }, "<C-Down>", "<C-w>-", { desc = "Resize decrease window height" })
 map({ "n" }, "<C-Right>", "<C-w>>", { desc = "Resize increase window width" })
 map({ "n" }, "<C-Left>", "<C-w><", { desc = "Resize decrease window width" })
 
+map("n", "<leader>fr", "<cmd>Telescope oldfiles cwd_only=true<CR>", { desc = "Find recent files in project" })
+
 -- Tabufline
 map("n", "<leader>x", function()
   local count = vim.v.count > 0 and vim.v.count or 1
