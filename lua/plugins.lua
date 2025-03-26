@@ -1,5 +1,27 @@
 return {
   {
+    "petertriho/nvim-scrollbar",
+    event = "BufReadPost",
+    config = function()
+      require("scrollbar").setup({
+        show = true,
+        handle = {
+          text = " ",
+          color = "#a1b1c1",
+          hide_if_all_visible = true,
+        },
+        marks = {
+          Search = { color = "#ff0000" },
+          Error = { color = "#ff0000" },
+          Warn = { color = "#ffaa00" },
+          Info = { color = "#00ff00" },
+          Hint = { color = "#0000ff" },
+          Misc = { color = "#888888" },
+        },
+      })
+    end,
+  },
+  {
     "tpope/vim-abolish",
     cmd = { "Abolish", "Subvert" },
     keys = { "cr" },
@@ -8,7 +30,7 @@ return {
     "yetone/avante.nvim",
     event = "User",
     build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
-    version = false,
+    version = true,
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
@@ -106,7 +128,7 @@ return {
       { "cs", mode = { "n" } },
       { "ds", mode = { "n" } },
       { "ys", mode = { "n" } },
-      { "s", mode = { "v", "x" } },
+      { "s",  mode = { "v", "x" } },
     },
     config = function()
       return require("configs.surround").setup()

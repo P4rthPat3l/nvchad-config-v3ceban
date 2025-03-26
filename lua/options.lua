@@ -20,12 +20,24 @@ vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.scrolloff = 15
 vim.opt.laststatus = 3
 
+-- Add spacing on the right side of line numbers
+vim.opt.numberwidth = 4  -- Keep numbers close to the left
+vim.opt.statuscolumn = '%=%{v:relnum?v:relnum:v:lnum}  '  -- The spaces after %{} create right padding
+
+-- buffer tabs
+-- vim.opt.winwidth = 50    -- Further increases the width of window splits
+-- vim.opt.winminwidth = 30 -- Increases the minimum width of windows
+-- vim.opt.winheight = 30   -- Increases window height (optional)
+
 vim.api.nvim_set_hl(0, "RenderMarkdownHeader", { fg = "#89b4fa" })
 vim.api.nvim_set_hl(0, "RenderMarkdownTodo", { fg = "#f38ba8" })
 vim.api.nvim_set_hl(0, "RenderMarkdownCodeInline", { fg = "#fab387" })
 -- higlight groups for avante and git-conflict
 vim.api.nvim_set_hl(0, "DiffAddGroup", { bg = "#272a3f" })
 vim.api.nvim_set_hl(0, "DiffTextGroup", { bg = "#1e2030" })
+vim.api.nvim_set_hl(0, "LspReferenceText", { bg = "#363646" })
+vim.api.nvim_set_hl(0, "LspReferenceRead", { bg = "#363646" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { bg = "#363646" })
 
 -- for better syntax highlighting in .env files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {

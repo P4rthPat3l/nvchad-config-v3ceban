@@ -7,7 +7,7 @@ local opts = {
   auto_suggestions_provider = "copilot:4o",
   openai = {
     endpoint = "https://api.openai.com/v1", -- needs OPENAI_API_KEY env variable
-    model = "o3-mini",
+    model = "gpt-4o",
     max_tokens = 16384,
   },
   ollama = {
@@ -111,16 +111,16 @@ local opts = {
     -- <leader>sr map is set in mappings.lua as noremap
     -- setting avante maps to this key will effectively disable it
     -- and hide it from nvchad cheatsheet
-    ask = "<leader>sr", -- disabled
-    edit = "<leader>sr", -- disabled
+    ask = "<leader>sr",     -- disabled
+    edit = "<leader>sr",    -- disabled
     refresh = "<leader>sr", -- disabled
-    focus = "<leader>sr", -- disabled
+    focus = "<leader>sr",   -- disabled
     toggle = {
       default = "<leader>sr",
-      debug = "<leader>sr", -- disabled
-      hint = "<leader>sr", -- disabled
+      debug = "<leader>sr",      -- disabled
+      hint = "<leader>sr",       -- disabled
       suggestion = "<leader>sr", -- disabled
-      repomap = "<leader>sr", -- disabled
+      repomap = "<leader>sr",    -- disabled
     },
     sidebar = {
       apply_all = "A",
@@ -144,12 +144,12 @@ local opts = {
       incoming = "DiffAddGroup",
     },
   },
-   rag_service = {
-    enabled = false, -- Enables the RAG service
-    host_mount = os.getenv "HOME", -- Host mount path for the rag service
-    provider = "openai", -- The provider to use for RAG service (e.g. openai or ollama)
-    llm_model = "", -- The LLM model to use for RAG service
-    embed_model = "", -- The embedding model to use for RAG service
+  rag_service = {
+    enabled = false,                        -- Enables the RAG service
+    host_mount = os.getenv "HOME",          -- Host mount path for the rag service
+    provider = "openai",                    -- The provider to use for RAG service (e.g. openai or ollama)
+    llm_model = "",                         -- The LLM model to use for RAG service
+    embed_model = "",                       -- The embedding model to use for RAG service
     endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
   },
   diff = {
@@ -179,3 +179,4 @@ for _, model in ipairs(hidden_models) do
 end
 
 return opts
+
