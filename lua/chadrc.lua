@@ -5,7 +5,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "aquarium",
+  theme = "doomchad",
 }
 
 M.ui = {
@@ -21,7 +21,7 @@ M.ui = {
       "tabs",
       -- "btns",
     },
-    bufwidth = 35,  -- reduced to a more reasonable width
+    bufwidth = 21,
   },
 
   cmp = {
@@ -51,7 +51,7 @@ M.nvdash = {
     { txt = "󰉋  Open Files", keys = "Spc e", cmd = "NvimTreeFocus" },
     { txt = "  Find File", keys = "Spc ff", cmd = "Telescope find_files" },
     { txt = "󰈭  Find Word", keys = "Spc fw", cmd = "Telescope live_grep" },
-    { txt = "  Recent Files", keys = "Spc fo", cmd = "Telescope 	oldfiles" },
+    { txt = "  Recent Files", keys = "Spc fo", cmd = "Telescope oldfiles" },
     { txt = "󱥚  Themes", keys = "Spc th", cmd = ":lua require('nvchad.themes').open()" },
     { txt = "  Mappings", keys = "Spc ch", cmd = "NvCheatsheet" },
     { txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },

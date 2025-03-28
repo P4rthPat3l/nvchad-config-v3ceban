@@ -39,6 +39,17 @@ vim.api.nvim_set_hl(0, "LspReferenceText", { bg = "#363646" })
 vim.api.nvim_set_hl(0, "LspReferenceRead", { bg = "#363646" })
 vim.api.nvim_set_hl(0, "LspReferenceWrite", { bg = "#363646" })
 
+-- Enhanced LSP semantic token highlights
+vim.api.nvim_set_hl(0, '@lsp.type.function', { fg = '#89b4fa' })
+vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#f5e0dc' })
+vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#f9e2af' })
+vim.api.nvim_set_hl(0, '@lsp.type.class', { fg = '#94e2d5' })
+vim.api.nvim_set_hl(0, '@lsp.type.enum', { fg = '#94e2d5' })
+vim.api.nvim_set_hl(0, '@lsp.type.keyword', { fg = '#cba6f7' })
+vim.api.nvim_set_hl(0, '@lsp.type.interface', { fg = '#89dceb' })
+vim.api.nvim_set_hl(0, '@lsp.type.namespace', { fg = '#89dceb' })
+vim.api.nvim_set_hl(0, '@lsp.type.property', { fg = '#f5c2e7' })
+
 -- for better syntax highlighting in .env files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = {
@@ -78,4 +89,14 @@ vim.api.nvim_create_autocmd("FileType", {
       { noremap = true, silent = true }
     )
   end,
+})
+
+-- Highlight on yank
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank({ higroup = 'Visual', timeout = 200 })
+  end,
+  group = highlight_group,
+  pattern = '*',
 })

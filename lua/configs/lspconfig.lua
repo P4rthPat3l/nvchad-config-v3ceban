@@ -4,7 +4,59 @@ local lspconfig = require "lspconfig"
 local nvlsp = require "nvchad.configs.lspconfig"
 local init = nvlsp.on_init
 local attach = nvlsp.on_attach
-local capabilities = nvlsp.capabilities
+local capabilities = vim.tbl_deep_extend("force", nvlsp.capabilities, {
+  textDocument = {
+    semanticTokens = {
+      dynamicRegistration = false,
+      multilineTokenSupport = false,
+      tokenModifiers = {},
+      tokenTypes = {},
+    },
+  },
+})
+
+local diagnostic_signs = {
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
+}
+
+-- Set diagnostic signs
+for _, sign in ipairs(diagnostic_signs) do
+  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
+
+-- Configure diagnostic display
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",
+    source = "always",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
+
+-- Add semantic highlighting
+vim.api.nvim_set_hl(0, '@lsp.type.variable.unused', { fg = '#6c7086', italic = true })
+vim.api.nvim_set_hl(0, '@lsp.type.parameter.unused', { fg = '#6c7086', italic = true })
+vim.api.nvim_set_hl(0, '@lsp.mod.unused', { fg = '#6c7086', italic = true })
+
+-- Make used variables more visible
+vim.api.nvim_set_hl(0, '@lsp.type.variable', { fg = '#cdd6f4' }) -- Brighter color for used variables
+vim.api.nvim_set_hl(0, '@lsp.type.parameter', { fg = '#f9e2af' }) -- Bright yellow for parameters
+
+-- Add this to dim unused variables and imports
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.semanticTokensProvider then
+      vim.lsp.semantic_tokens.start(args.buf, client)
+    end
+  end,
+})
 
 local function documentHighlight(client, bufnr)
   -- Set autocommands conditional on server_capabilities
@@ -83,6 +135,14 @@ lspconfig.ts_ls.setup {
     documentHighlight(client, bufnr)
   end,
   capabilities = capabilities,
+  settings = {
+    typescript = {
+      semanticTokens = true,
+    },
+    javascript = {
+      semanticTokens = true,
+    },
+  },
   init_options = {
     preferences = {
       disableSuggestions = true,

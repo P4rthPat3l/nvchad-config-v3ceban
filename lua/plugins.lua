@@ -30,7 +30,6 @@ return {
     "yetone/avante.nvim",
     event = "User",
     build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false",
-    version = true,
     dependencies = {
       "MunifTanjim/nui.nvim",
     },
