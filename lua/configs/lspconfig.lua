@@ -27,16 +27,32 @@ for _, sign in ipairs(diagnostic_signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
--- Configure diagnostic display
+-- Configure diagnostic display with inline warnings
 vim.diagnostic.config({
   virtual_text = {
-    prefix = "●",
+    prefix = "●", -- You can change this to any symbol you prefer
     source = "always",
+    spacing = 4,
+    severity = {
+      min = vim.diagnostic.severity.WARN,  -- Show warnings and errors
+    },
+    format = function(diagnostic)
+      if diagnostic.severity == vim.diagnostic.severity.WARN then
+        return "unused"
+      end
+      return diagnostic.message
+    end,
   },
   signs = true,
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+  float = {
+    border = "rounded",
+    source = "always",
+    header = "",
+    prefix = "",
+  },
 })
 
 -- Add semantic highlighting
@@ -137,15 +153,28 @@ lspconfig.ts_ls.setup {
   capabilities = capabilities,
   settings = {
     typescript = {
-      semanticTokens = true,
+      inlayHints = {
+        unusedDeclaration = true,
+      },
+      suggestionActions = {
+        enabled = false,
+      },
+      diagnostics = {
+        unusedParameters = true,
+        unusedVariables = true,
+      },
     },
     javascript = {
-      semanticTokens = true,
-    },
-  },
-  init_options = {
-    preferences = {
-      disableSuggestions = true,
+      inlayHints = {
+        unusedDeclaration = true,
+      },
+      suggestionActions = {
+        enabled = false,
+      },
+      diagnostics = {
+        unusedParameters = true,
+        unusedVariables = true,
+      },
     },
   },
 }
