@@ -12,14 +12,10 @@ config.completion = {
 
 config.preselect = cmp.PreselectMode.None
 
--- local sources = {
---   "render-markdown",
--- }
---
--- for _, source in ipairs(sources) do
---   table.insert(config.sources, {
---     name = source,
---   })
--- end
+-- Add Codeium as a source
+table.insert(config.sources, {
+  name = "codeium",
+  priority = 1000, -- High priority to show suggestions first
+})
 
 return config

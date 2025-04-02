@@ -61,17 +61,93 @@ return {
     opts = require "configs.conform",
   },
   {
-    "github/copilot.vim",
-    event = "InsertEnter",
-    cmd = { "Copilot" },
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    event = "VeryLazy",
+    "Exafunction/codeium.nvim",
     dependencies = {
-      "github/copilot.vim",
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
     },
-    opts = require "configs.copilot",
+    build = function()
+      -- For Windows, download and extract manually
+      if vim.fn.has('win32') == 1 then
+        local install_path = vim.fn.stdpath("data") .. "/codeium"
+        local version = "1.6.3"  -- Update this version as needed
+        local binary_path = install_path .. "/codeium_language_server.exe"
+        
+        -- Create directory if it doesn't exist
+        vim.fn.mkdir(install_path, "p")
+        
+        -- Download URL for Windows
+        local url = string.format(
+          "https://github.com/Exafunction/codeium/releases/download/language-server-v%s/language_server_windows_x64.exe",
+          version
+        )
+        
+        -- Download the binary
+        if not vim.loop.fs_stat(binary_path) then
+          vim.fn.system({
+            "powershell",
+            "-Command",
+            string.format(
+              "Invoke-WebRequest -Uri '%s' -OutFile '%s'",
+              url,
+              binary_path
+            )
+          })
+        end
+      end
+    end,
+    cmd = "Codeium",
+    config = function()
+      -- Create required directories
+      local data_path = vim.fn.stdpath("data")
+      local codeium_path = data_path .. "/codeium"
+      local config_path = codeium_path .. "/config.json"
+
+      -- Create directories if they don't exist
+      vim.fn.mkdir(codeium_path, "p")
+
+      -- Override the gunzip function
+      local io = require("codeium.io")
+      io.gunzip = function(gz_path, out_path)
+        local cmd = string.format([["%ProgramFiles%\7-Zip\7z.exe" e -y -o"%s" "%s"]], 
+          vim.fn.fnamemodify(out_path, ":h"), 
+          gz_path)
+        local handle = io.popen(cmd)
+        if handle then
+          handle:close()
+        end
+        return true
+      end
+
+      local codeium = require("codeium")
+      codeium.setup({
+        bin_path = codeium_path,
+        config_path = config_path,
+        config = {
+          tools = {
+            language_server = {
+              command = "codeium_language_server.cmd",
+            },
+          },
+        },
+      })
+
+      -- Register the command properly
+      vim.api.nvim_create_user_command("Codeium", function(opts)
+        local args = opts.fargs
+        if args[1] == "Auth" then
+          -- Ensure plugin is loaded before authentication
+          require("lazy").load({ plugins = { "codeium.nvim" } })
+          local Server = require("codeium.api")
+          Server.authenticate()
+        end
+      end, {
+        nargs = 1,
+        complete = function()
+          return { "Auth" }
+        end,
+      })
+    end,
   },
   {
     "stevearc/dressing.nvim",

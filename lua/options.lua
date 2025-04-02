@@ -15,7 +15,8 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 vim.g.markdown_recommended_style = 0
-vim.g.copilot_no_tab_map = true
+-- Remove this line
+-- vim.g.copilot_no_tab_map = true
 vim.opt.completeopt = "menu,menuone,noselect,popup"
 vim.opt.scrolloff = 15
 vim.opt.laststatus = 3

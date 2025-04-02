@@ -92,59 +92,11 @@ map({ "n" }, "<leader>gcb", "<cmd>GitConflictChooseBoth<CR>", { desc = "Git choo
 map({ "n" }, "[c", "<cmd>GitConflictPrevConflict<CR>", { desc = "Git previous conflict" })
 map({ "n" }, "]c", "<cmd>GitConflictNextConflict<CR>", { desc = "Git next conflict" })
 
--- Github Copilot
-map(
-  { "i" },
-  "<M-l>",
-  [[copilot#Accept("\\<CR>")]],
-  { desc = "AI Accept suggestion", expr = true, replace_keycodes = false, silent = true }
-)
-map({ "i" }, "<M-j>", "copilot#Next()", { desc = "AI Next suggestion", expr = true, silent = true })
-map({ "i" }, "<M-k>", "copilot#Previous()", { desc = "AI Previous suggestion", expr = true, silent = true })
-
--- Copilot Chat
-local CopilotChat = require "CopilotChat"
-local CopilotSelection = require "CopilotChat.select"
-local CopilotTelescope = require "CopilotChat.integrations.telescope"
-local CopilotActions = require "CopilotChat.actions"
-
-local function get_chat_config(selection_type, with_buffer, agent)
-  local config = {
-    selection = selection_type,
-    context = with_buffer and "buffer" or false,
-    remember_as_sticky = false,
-  }
-  if agent then
-    config.agent = agent
-  end
-  return config
-end
-
-map({ "n" }, "<leader>ac", function()
-  CopilotChat.open(get_chat_config(CopilotSelection.buffer, true))
-end, { desc = "AI Open chat" })
-map({ "v" }, "<leader>ac", function()
-  CopilotChat.open(get_chat_config(CopilotSelection.visual, false))
-end, { desc = "AI Open chat with selected code" })
-
-map({ "n" }, "<leader>ar", function()
-  CopilotTelescope.pick(CopilotActions.prompt_actions(get_chat_config(CopilotSelection.buffer, true)))
-end, { desc = "AI Run action" })
-map({ "v" }, "<leader>ar", function()
-  CopilotTelescope.pick(CopilotActions.prompt_actions(get_chat_config(CopilotSelection.visual, false)))
-end, { desc = "AI Run action on selected code" })
-
-map({ "n" }, "<leader>ap", function()
-  local input = vim.fn.input "Perplexity: "
-  if input ~= "" then
-    CopilotChat.ask(input, get_chat_config(false, false, "perplexityai"))
-  end
-end, { desc = "AI Search with perplexity" })
-
-map({ "n" }, "<leader>agc", function()
-  vim.fn.system "git add ."
-  vim.cmd "CopilotChatCommit"
-end, { desc = "AI Generate commit" })
+-- Codeium
+map({ "i" }, "<M-l>", "codeium#Accept()", { expr = true, desc = "AI Accept suggestion" })
+map({ "i" }, "<M-j>", "codeium#CycleCompletions(1)", { expr = true, desc = "AI Next suggestion" })
+map({ "i" }, "<M-k>", "codeium#CycleCompletions(-1)", { expr = true, desc = "AI Prev suggestion" })
+map({ "i" }, "<M-h>", "codeium#Clear()", { expr = true, desc = "AI Clear suggestions" })
 
 -- Avante
 map({ "n" }, "<M-a>", "<cmd>AvanteToggle<CR>", { desc = "AI Toggle chat" })
