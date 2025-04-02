@@ -79,6 +79,11 @@ map({ "n" }, "<leader>gb", "<cmd>lua require('gitsigns').blame_line()<CR>", { de
 map({ "n" }, "[h", "<cmd>lua require('gitsigns').prev_hunk()<CR>", { desc = "Git previous hunk" })
 map({ "n" }, "]h", "<cmd>lua require('gitsigns').next_hunk()<CR>", { desc = "Git next hunk" })
 
+-- LazyGit
+map({ "n" }, "<leader>gg", "<cmd>LazyGit<CR>", { desc = "Open LazyGit" })
+map({ "n" }, "<leader>gf", "<cmd>LazyGitCurrentFile<CR>", { desc = "LazyGit current file" })
+map({ "n" }, "<leader>gc", "<cmd>LazyGitConfig<CR>", { desc = "LazyGit config" })
+
 -- Git conflict
 map({ "n" }, "<leader>gco", "<cmd>GitConflictChooseOurs<CR>", { desc = "Git choose our commit" })
 map({ "n" }, "<leader>gct", "<cmd>GitConflictChooseTheirs<CR>", { desc = "Git choose theirs commit" })
@@ -145,6 +150,7 @@ end, { desc = "AI Generate commit" })
 map({ "n" }, "<M-a>", "<cmd>AvanteToggle<CR>", { desc = "AI Toggle chat" })
 map({ "v" }, "<leader>ae", "<cmd>AvanteEdit<CR>", { desc = "AI Edit selected code" })
 map({ "n" }, "<leader>am", "<cmd>AvanteModels<CR>", { desc = "AI Change model" })
+map({ "n" }, "<leader>ax", "<cmd>AvanteClear<CR>", { desc = "AI Clear chat" })  -- New mapping
 
 -- Flash.nvim
 map({ "v", "o" }, "n", function()

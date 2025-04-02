@@ -5,7 +5,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "doomchad",
+  theme = "bearded-arc",
 }
 
 M.ui = {
